@@ -5,32 +5,46 @@ class NegociacaoController {
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');           
+        this._ordemAtual = '';
 
-        this._negociacoesView = new NegociacaoView($('#negociacaoView'));
         this._listaNegociacoes = new Bind(
             new ListaNegociacoes(),
-            this._negociacoesView,
-            ['adiciona', 'esvazia']
+            new NegociacaoView($('#negociacaoView')),
+            'adiciona', 'esvazia', 'ordena', 'inverteOrdem'
         );      
-            
-        this._mensagemView = new MensagemView($('#mensagemView'));
+
         this._mensagem = new Bind(
             new Mensagem(), 
-            this._mensagemView,
-            ['texto']
+            new MensagemView($('#mensagemView')),
+            'texto'
         );   
     }
         
     adiciona(event) {
         event.preventDefault();
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
-        this._mensagem.texto = 'Negociação adicionada com sucesso.';
-        this._limpaFormulario();
+
+        try {
+            this._listaNegociacoes.adiciona(this._criaNegociacao());
+            this._mensagem.texto = 'Negociação adicionada com sucesso.';
+            this._limpaFormulario();
+        } catch(erro) {
+            this._mensagem.texto = erro;
+        }
+
     }
 
     apaga() {
         this._listaNegociacoes.esvazia();
         this._mensagem.texto = 'Negociações apagadas com sucesso.';
+    }
+
+    ordena(coluna) {
+        if(this._ordemAtual == coluna) {
+            this._listaNegociacoes.inverteOrdem();
+        } else {
+            this._listaNegociacoes.ordena((a, b) => a[coluna] - b[coluna]);
+        }   
+        this._ordemAtual = coluna;
     }
 
     importarNegociacoes() {
