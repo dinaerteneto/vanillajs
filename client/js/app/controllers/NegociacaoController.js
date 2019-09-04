@@ -32,18 +32,16 @@ class NegociacaoController {
         
     adiciona(event) {
         event.preventDefault();
+        let negociacao = this._criaNegociacao();
 
         ConnectionFactory
             .getConnection()
-            .then(connection => {
-                let negociacao = this._criaNegociacao();
-                new NegociacaoDao(connection)
-                    .adiciona(negociacao)
-                    .then(() => {
-                        this._listaNegociacoes.adiciona(this._criaNegociacao());
-                        this._mensagem.texto = 'Negociação adicionada com sucesso.';
-                        this._limpaFormulario();
-                    });
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.adiciona(negociacao))              
+            .then(() => {
+                this._listaNegociacoes.adiciona(this._criaNegociacao());
+                this._mensagem.texto = 'Negociação adicionada com sucesso.';
+                this._limpaFormulario();
             })
             .catch(erro => this._mensagem.texto = erro);
     }
@@ -52,13 +50,11 @@ class NegociacaoController {
        
         ConnectionFactory
             .getConnection()
-            .then(connection => {
-                new NegociacaoDao(connection)
-                .apaga()
-                .then(() => {
-                    this._listaNegociacoes.esvazia();
-                    this._mensagem.texto = 'Negociações apagadas com sucesso.';
-                })
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apaga())
+            .then(() => {
+                this._listaNegociacoes.esvazia();
+                this._mensagem.texto = 'Negociações apagadas com sucesso.';
             })
             .catch(erro => this._mensagem.texto = erro);
     }
