@@ -3,6 +3,8 @@
 Este é um projeto que estou desenvolvendo para melhorar meus conhecimento em ES6.
 
 Este projeto é escrito utilizando javascript com orientação a objetos utilizando alguns padrões:
+
+## Padrões utilizados neste projeto
     - Proxy
     - Singleton
     - DAO
