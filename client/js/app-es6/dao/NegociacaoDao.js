@@ -56,7 +56,7 @@ export class NegociacaoDao {
         });
     }
 
-    apaga() {
+    apagaTodos() {
         return new Promise((resolve, reject) => {
             let request = this
                 ._connection
@@ -64,9 +64,7 @@ export class NegociacaoDao {
                 .objectStore(this._store)
                 .clear();        
                 
-                request.onsuccess = (e) => {
-                    resolve();
-                };
+                request.onsuccess = e => resolve('Negociações apagadas com sucesso');
     
                 request.onerror = e => {
                     console.log(e.target.error);

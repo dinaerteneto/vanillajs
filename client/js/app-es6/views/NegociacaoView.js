@@ -1,6 +1,6 @@
 import {View} from './View';
 import {DateHelper} from '../helpers/DateHelper';
-import {currentInstance} from '../controlers/NegociacaoController';
+import {currentInstance} from '../controllers/NegociacaoController';
 
 export class NegociacaoView extends View {
 
@@ -8,7 +8,7 @@ export class NegociacaoView extends View {
         super(elemento);
         elemento.addEventListener('click', function(event) {
             if(event.target.nodeName == 'TH') {
-                currentInstance().ordena(envet.target.textContent.toLowerCase());
+                currentInstance().ordena(event.target.textContent.toLowerCase());
             }
         });
     }

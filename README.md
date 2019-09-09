@@ -15,6 +15,13 @@ Este projeto é escrito utilizando javascript com orientação a objetos utiliza
 
 ## E como eu rodo este projeto?
     - Faça o clone do projeto em algum diretório na sua máquina.
+    - Navegue até o diretório server
+    - Execute os comandos:
+        - npm install
+        - npm start
+    - Abra um novo prompt de comnando
     - Navegue até o diretório client
-    - Execute o comando: npm run dev
-    - Acesse o navegador utilizando o endereço: localhost:8080
+    - Execute os comandos:
+        - npm install
+        - npm run build
+    - Acesse o navegador utilizando o endereço: localhost:3000
